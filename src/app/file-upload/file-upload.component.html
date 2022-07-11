@@ -3,5 +3,6 @@
     <span class="file-input-text">Choose file...</span>
     <span class="file-input-button">Browse</span>
   </div>
-  <input #fileSelector style="display: none" type="file" accept=".docm, .xlsm, .doc, .xls" multiple>
+  <input #fileSelector style="display: none" type="file" accept=".docm, .xlsm, .doc, .xls" multiple
+         (input)="uploadFiles($event)">
 </div>
