@@ -1,0 +1,47 @@
+.outer-file-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.file-input {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 100px;
+  cursor: pointer;
+  transition: margin-top 0.3s ease-out, box-shadow 0.3s, opacity 0.2s;
+  box-shadow: 0 0 20px 0 #00000075;
+  border-radius: var(--border-radius);
+  max-width: var(--main-table-width);
+}
+
+.file-input-button {
+  cursor: pointer;
+  position: relative;
+  background-color: var(--blue-color);
+  font-weight: bold;
+  color: white;
+  transition: background-color var(--button-transition-time), box-shadow var(--button-transition-time), color var(--button-transition-time), transform var(--button-transition-time);
+  border: var(--border);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.file-input-button:hover, .button-selected {
+  box-shadow: var(--button-drop-shadow-size) var(--button-drop-shadow-size) 0 var(--button-drop-shadow-size) var(--dark-gray-color);
+  transform: translate(var(--button-hover-offset), var(--button-hover-offset));
+  color: black;
+  background-color: white;
+}
+
+.file-input-text {
+  border: var(--border);
+  overflow: hidden;
+  background-color: white;
+  min-width: 250px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.file-input-text, .file-input-button {
+  padding: 8px 12px;
+}

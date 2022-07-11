@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --border-radius: 5px;
+  --border-size: 1px;
+  --button-hover-offset: -1px;
+  --button-drop-shadow-size: 1px;
+  --default-font-family: 'Roboto', sans-serif;
+  --light-gray-color: #e5ebf1;
+  --gray-color: #c5cfd9;
+  --dark-gray-color: #53595f;
+  --blue-color: #4354cb;
+  --border: var(--border-size) solid var(--dark-gray-color);
+  --button-transition-time: 0.08s;
+  --main-table-width: 65%;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: var(--default-font-family);
+  //background-color: var(--gray-color);
+  background: linear-gradient(180deg, rgba(178, 198, 225, 1) 0%, rgba(197, 207, 217, 1) 100%) fixed;
+  overflow-x: hidden;
+}
+
