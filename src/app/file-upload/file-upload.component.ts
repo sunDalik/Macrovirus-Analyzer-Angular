@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {OleFileReaderService} from "../services/ole-file-reader.service";
 import * as JSZip from "jszip";
+import {OleFile} from "../models/ole-file";
 
 @Component({
   selector: 'app-file-upload',
@@ -21,14 +22,10 @@ export class FileUploadComponent implements OnInit {
     const fileList = (<HTMLInputElement>e?.target)?.files ?? new FileList();
     if (fileList.length === 0) return;
 
-    const handleFile = (file: File, contents: Uint8Array) => {
-      //file.oleFile = prepareFile(contents);
-    };
-
     let pendingFiles = 0;
-    const processedFiles: Array<Uint8Array | null> = [];
+    const processedFiles: Array<OleFile | null> = [];
 
-    const tryFinish = (newFile: Uint8Array | null) => {
+    const tryFinish = (newFile: OleFile | null) => {
       processedFiles.push(newFile);
       if (processedFiles.length >= fileList.length) {
         this.router.navigate(['result'], {state: {files: processedFiles.filter(f => f !== null)}});
@@ -57,7 +54,7 @@ export class FileUploadComponent implements OnInit {
         }
         const contents = new Uint8Array(<ArrayBuffer>result);
         if (this.oleFileReaderService.isOleFile(contents)) {
-          handleFile(file, contents);
+          tryFinish(new OleFile(file, contents));
         } else if (this.oleFileReaderService.isZipFile(contents)) {
           const jsZip = new JSZip();
           jsZip.loadAsync(file)
@@ -76,8 +73,7 @@ export class FileUploadComponent implements OnInit {
               tryFinish(null);
             })
             .then(content => {
-              handleFile(file, new Uint8Array(<number[]>content));
-              tryFinish(new Uint8Array(<number[]>content));
+              tryFinish(new OleFile(file, new Uint8Array(<number[]>content)));
             });
         }
       });

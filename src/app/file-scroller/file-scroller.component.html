@@ -1,0 +1,14 @@
+<div class="file-scroller">
+  <!--TODO UPLOAD BUTTON SHOULD ALWAYS STAY AT THE TOP-->
+  <div id="upload-button" class="file-scroller-entry file-input-button file-scroller-upload-button">
+    <fa-icon class="fas fa-lg" [icon]="faUpload"></fa-icon>
+    <div>Upload</div>
+  </div>
+
+  <div *ngFor="let entry of files" class="file-scroller-entry file-input-button"
+       (click)="fileDisplayEvent.emit(entry)">
+    <div class="ellipsis-text">{{entry.file.name}}</div>
+    <fa-icon class="fas fa-lg" [icon]="entry.readError ? faTimes : entry.isMalicious ? faSkull : faCheck"
+             [ngClass]="entry.readError? 'black' : entry.isMalicious ? 'red' : 'green'"></fa-icon>
+  </div>
+</div>
