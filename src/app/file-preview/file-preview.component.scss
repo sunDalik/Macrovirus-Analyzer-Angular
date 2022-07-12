@@ -1,0 +1,48 @@
+.flexbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.file-preview {
+  display: inline-block;
+  background: white;
+  padding: 10px;
+  border: var(--border);
+  border-radius: var(--border-radius);
+  margin: 0 auto;
+  min-width: 250px;
+  max-width: 600px;
+  align-items: center;
+}
+
+.file-format-icon {
+  height: 70px;
+  width: 70px;
+  filter: drop-shadow(2px 2px 1px #777777);
+}
+
+.file-info {
+  border-radius: var(--border-radius);
+  padding: 10px 15px;
+}
+
+.ellipsis-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.green {
+  color: #4ade45;
+}
+
+.red {
+  color: #de454a;
+}
+
+.black {
+  color: #333333;
+}
+
+.bold {
+  font-weight: bold;
+}

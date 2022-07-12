@@ -1,0 +1,25 @@
+<div class="flexbox">
+  <div id="file-preview" class="file-preview">
+    <div class="flexbox" *ngIf="file != undefined">
+      <div>
+        <img class="file-format-icon" [src]="'assets/' + file.getFormat() + '.png'" alt="File Icon">
+      </div>
+      <div class="file-info">
+        <div class="ellipsis-text">{{file.file.name}}</div>
+        <div>{{getReadableFileSizeString(file.file.size)}}</div>
+        <div *ngIf="!file.isMalicious && !file.readError" class="green">
+          <span class="bold">Safe</span>
+          <fa-icon size="1x" [icon]="faCheck"></fa-icon>
+        </div>
+        <div *ngIf="file.isMalicious" class="red">
+          <span class="bold">Malicious</span>
+          <fa-icon size="1x" [icon]="faSkull"></fa-icon>
+        </div>
+        <div *ngIf="file.readError" class="black">
+          <span class="bold">Error reading file</span>
+          <fa-icon size="1x" [icon]="faTimes"></fa-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

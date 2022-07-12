@@ -8,7 +8,7 @@
   <div *ngFor="let entry of files" class="file-scroller-entry file-input-button"
        (click)="fileDisplayEvent.emit(entry)">
     <div class="ellipsis-text">{{entry.file.name}}</div>
-    <fa-icon class="fas fa-lg" [icon]="entry.readError ? faTimes : entry.isMalicious ? faSkull : faCheck"
+    <fa-icon size="lg" [icon]="entry.readError ? faTimes : entry.isMalicious ? faSkull : faCheck"
              [ngClass]="entry.readError? 'black' : entry.isMalicious ? 'red' : 'green'"></fa-icon>
   </div>
 </div>

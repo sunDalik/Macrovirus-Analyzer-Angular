@@ -13,4 +13,8 @@ export class OleFile {
   processFile() {
 
   }
+
+  getFormat(): string {
+    return this.file.name.split(".")[1];
+  }
 }
