@@ -85,6 +85,8 @@ export class OleFileInputComponent implements OnInit {
             .then(content => {
               tryFinish(new OleFile(file, new Uint8Array(<number[]>content), this.oleFileReaderService));
             });
+        } else {
+          tryFinish(null);
         }
       });
       reader.readAsArrayBuffer(file);

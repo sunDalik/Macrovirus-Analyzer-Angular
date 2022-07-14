@@ -46,7 +46,12 @@ export class OleFile {
   private fileTree: DirEntry | undefined;
 
   constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService) {
-    this.processFile();
+    try {
+      this.processFile();
+    } catch (e) {
+      console.log("ERROR READING OLEFILE " + this.file.name);
+      this.readError = true;
+    }
   }
 
   processFile() {
