@@ -1,0 +1,119 @@
+
+.main-table {
+  width: var(--main-table-width);
+  margin: 20px auto auto;
+}
+
+.sub-menu {
+  position: fixed;
+  right: 0;
+  width: 13%;
+  background-color: white;
+  padding: 15px;
+  border: var(--border);
+  border-right: none;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+input:disabled + label {
+  color: #CCCCCC;
+}
+
+.indent-small {
+  margin-left: 15px;
+}
+
+.flexbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-contents {
+  border: var(--border);
+  /*padding: 15px 10px 10px;*/
+  background-color: white;
+  position: relative;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.tab-selector-table {
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+
+.tab-selector {
+  z-index: 2;
+  position: relative;
+  display: table-cell;
+  border: var(--border);
+  border-bottom: none;
+  background-color: white;
+  padding: 10px 14px;
+  margin-right: 10px;
+  cursor: pointer;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  transition: background-color var(--button-transition-time), box-shadow var(--button-transition-time), color var(--button-transition-time), transform var(--button-transition-time);
+}
+
+.tab-selector:first-child {
+  border-radius: var(--border-radius) 0 0 0;
+}
+
+.tab-selector:last-child {
+  border-radius: 0 var(--border-radius) 0 0;
+}
+
+.inactive-tab {
+  background-color: var(--blue-color);
+  color: white;
+  font-weight: bold;
+}
+
+.inactive-tab:hover {
+  color: black;
+  background-color: white;
+  box-shadow: 0 var(--button-drop-shadow-size) 0 0 var(--dark-gray-color);
+  transform: translate(0, var(--button-hover-offset));
+}
+
+.code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 14px;
+}
+
+.tab-text {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.flex-child {
+  flex-basis: 100%;
+}
+
+.border-left {
+  border-left: var(--border);
+}
+
+.table-module {
+  padding: 10px;
+}
+
+.module-separator {
+  border-bottom: var(--border);
+}
+
+.module-header {
+  font-weight: bold;
+}
+
+.table-module:first-child {
+  padding-top: 15px;
+}
+
+.malicious-keyword {
+  color: #db3c3c;
+  font-weight: bold;
+}
