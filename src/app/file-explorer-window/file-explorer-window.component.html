@@ -1,1 +1,50 @@
-<p>file-explorer-window works!</p>
+<div class="main-table">
+  <div class="tab-selector-table">
+    <span class="tab-selector" (click)="activeTab=1">Analysis</span>
+    <span class="tab-selector" (click)="activeTab=2">Source Code</span>
+    <span class="tab-selector" (click)="activeTab=3">Deobfuscated code</span>
+  </div>
+
+  <div class="tabs" *ngIf="activeFile !== undefined">
+    <div class="tab-contents" *ngIf="activeTab == 1">
+      <div class="tab-text"></div>
+    </div>
+
+    <div class="tab-contents" *ngIf="activeTab == 2">
+      <div class="sub-menu">
+        <div>
+          <input type="checkbox" id="show-source-code-checkbox">
+          <label for="show-source-code-checkbox">Show source code</label>
+        </div>
+
+        <div>
+          <input type="checkbox" id="show-pcode-checkbox">
+          <label for="show-pcode-checkbox">Show p-code</label>
+        </div>
+
+        <div class="indent-small">
+          <input type="radio" name="pcode-radio" id="pcode-radio-1" disabled checked>
+          <label for="pcode-radio-1">Disassembled p-code</label>
+        </div>
+        <div class="indent-small">
+          <input type="radio" name="pcode-radio" id="pcode-radio-2" disabled>
+          <label for="pcode-radio-2">Decompiled p-code</label>
+        </div>
+      </div>
+      <div class="tab-text flexbox">
+        <div class="direct-child flex-child">
+          <div *ngFor="let macroModule of activeFile.macroModules">
+            <div class="module-header table-module">{{macroModule.name}}</div>
+            <div class="code table-module">{{macroModule.sourceCode}}</div>
+          </div>
+        </div>
+        <div class="direct-child flex-child border-left hidden"></div>
+      </div>
+    </div>
+
+    <div class="tab-contents" *ngIf="activeTab == 3">
+      <div class="sub-menu"></div>
+      <div class="tab-text"></div>
+    </div>
+  </div>
+</div>

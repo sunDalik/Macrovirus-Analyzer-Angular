@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {OleFile} from "../models/ole-file";
 
 @Component({
   selector: 'app-file-explorer-window',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./file-explorer-window.component.scss']
 })
 export class FileExplorerWindowComponent implements OnInit {
+  @Input() activeFile: OleFile | undefined;
+  activeTab: number = 2;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

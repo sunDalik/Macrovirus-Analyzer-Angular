@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OleFileReaderService } from './ole-file-reader.service';
+import { FileReaderService } from './file-reader.service';
 
 describe('OleFileReaderService', () => {
-  let service: OleFileReaderService;
+  let service: FileReaderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OleFileReaderService);
+    service = TestBed.inject(FileReaderService);
   });
 
   it('should be created', () => {

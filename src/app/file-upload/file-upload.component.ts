@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {OleFileReaderService} from "../services/ole-file-reader.service";
+import {FileReaderService} from "../services/file-reader.service";
 import * as JSZip from "jszip";
 import {OleFile} from "../models/ole-file";
 
@@ -11,7 +11,7 @@ import {OleFile} from "../models/ole-file";
 })
 export class FileUploadComponent implements OnInit {
 
-  constructor(private oleFileReaderService: OleFileReaderService,
+  constructor(private oleFileReaderService: FileReaderService,
               private router: Router) {
   }
 
@@ -54,7 +54,7 @@ export class FileUploadComponent implements OnInit {
         }
         const contents = new Uint8Array(<ArrayBuffer>result);
         if (this.oleFileReaderService.isOleFile(contents)) {
-          tryFinish(new OleFile(file, contents));
+          tryFinish(new OleFile(file, contents, this.oleFileReaderService));
         } else if (this.oleFileReaderService.isZipFile(contents)) {
           const jsZip = new JSZip();
           jsZip.loadAsync(file)
@@ -73,7 +73,7 @@ export class FileUploadComponent implements OnInit {
               tryFinish(null);
             })
             .then(content => {
-              tryFinish(new OleFile(file, new Uint8Array(<number[]>content)));
+              tryFinish(new OleFile(file, new Uint8Array(<number[]>content), this.oleFileReaderService));
             });
         }
       });
