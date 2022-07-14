@@ -10,6 +10,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileExplorerWindowComponent } from './file-explorer-window/file-explorer-window.component';
 import { FilePreviewComponent } from './file-preview/file-preview.component';
 import { HumanFileSizePipe } from './human-file-size.pipe';
+import { OleFileInputComponent } from './ole-file-input/ole-file-input.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HumanFileSizePipe } from './human-file-size.pipe';
     FileScrollerComponent,
     FileExplorerWindowComponent,
     FilePreviewComponent,
-    HumanFileSizePipe
+    HumanFileSizePipe,
+    OleFileInputComponent
   ],
   imports: [
     BrowserModule,

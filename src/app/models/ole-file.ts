@@ -32,12 +32,9 @@ class DirEntry {
 }
 
 export class OleFile {
-  file: File;
-  binaryContent: Uint8Array;
   readError = false;
   isMalicious = false;
   macroModules: Array<MacroModule> = [];
-  fileReaderService: FileReaderService;
 
   private sectorSize = 512;
   private miniSectorSize = 64;
@@ -48,10 +45,7 @@ export class OleFile {
   private miniStream = new Uint8Array(0);
   private fileTree: DirEntry | undefined;
 
-  constructor(file: File, binaryContent: Uint8Array, fileReaderService: FileReaderService) {
-    this.file = file;
-    this.binaryContent = binaryContent;
-    this.fileReaderService = fileReaderService;
+  constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService) {
     this.processFile();
   }
 

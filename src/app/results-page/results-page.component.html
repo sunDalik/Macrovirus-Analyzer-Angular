@@ -1,3 +1,4 @@
-<app-file-scroller [files]="files" (fileDisplayEvent)="explorer.activeFile=$event"></app-file-scroller>
-<app-file-preview [file]="files[0]"></app-file-preview>
-<app-file-explorer-window #explorer [activeFile]="activeFile"></app-file-explorer-window>
+<app-file-scroller [files]="files" (fileDisplayEvent)="activeFile=$event"
+                   (newFilesUploaded)="activeFile = $event[0]"></app-file-scroller>
+<app-file-preview [file]="activeFile"></app-file-preview>
+<app-file-explorer-window [activeFile]="activeFile"></app-file-explorer-window>

@@ -1,8 +1,11 @@
 <div class="file-scroller">
   <!--TODO UPLOAD BUTTON SHOULD ALWAYS STAY AT THE TOP-->
-  <div id="upload-button" class="file-scroller-entry file-input-button file-scroller-upload-button">
+  <div id="upload-button" class="file-scroller-entry file-input-button file-scroller-upload-button"
+       (click)="fileSelector.open()">
     <fa-icon class="fas fa-lg" [icon]="faUpload"></fa-icon>
     <div>Upload</div>
+    <app-ole-file-input #fileSelector
+                        (filesHandled)="onFilesUpload($event)"></app-ole-file-input>
   </div>
 
   <div *ngFor="let entry of files" class="file-scroller-entry file-input-button"
