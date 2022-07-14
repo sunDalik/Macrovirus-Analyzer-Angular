@@ -9,6 +9,7 @@ import { FileScrollerComponent } from './file-scroller/file-scroller.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FileExplorerWindowComponent } from './file-explorer-window/file-explorer-window.component';
 import { FilePreviewComponent } from './file-preview/file-preview.component';
+import { HumanFileSizePipe } from './human-file-size.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FilePreviewComponent } from './file-preview/file-preview.component';
     ResultsPageComponent,
     FileScrollerComponent,
     FileExplorerWindowComponent,
-    FilePreviewComponent
+    FilePreviewComponent,
+    HumanFileSizePipe
   ],
   imports: [
     BrowserModule,

@@ -6,7 +6,7 @@
       </div>
       <div class="file-info">
         <div class="ellipsis-text">{{file.file.name}}</div>
-        <div>{{getReadableFileSizeString(file.file.size)}}</div>
+        <div>{{file.file.size | humanFileSize}}</div>
         <div *ngIf="!file.isMalicious && !file.readError" class="green">
           <span class="bold">Safe</span>
           <fa-icon size="1x" [icon]="faCheck"></fa-icon>
