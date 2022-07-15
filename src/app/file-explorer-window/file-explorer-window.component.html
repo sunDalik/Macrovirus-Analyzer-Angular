@@ -7,7 +7,9 @@
 
   <div class="tabs" *ngIf="activeFile !== undefined">
     <div class="tab-contents" *ngIf="activeTab == 1">
-      <div class="tab-text"></div>
+      <div class="tab-text">
+        <div class="table-module">{{activeFile.analysisResult}}</div>
+      </div>
     </div>
 
     <div class="tab-contents" *ngIf="activeTab == 2">
@@ -18,16 +20,17 @@
         </div>
 
         <div>
-          <input type="checkbox" id="show-pcode-checkbox">
+          <input #myCheckbox type="checkbox" id="show-pcode-checkbox"
+                 (input)="null">
           <label for="show-pcode-checkbox">Show p-code</label>
         </div>
 
         <div class="indent-small">
-          <input type="radio" name="pcode-radio" id="pcode-radio-1" disabled checked>
+          <input type="radio" name="pcode-radio" id="pcode-radio-1" checked [disabled]="!myCheckbox.checked">
           <label for="pcode-radio-1">Disassembled p-code</label>
         </div>
         <div class="indent-small">
-          <input type="radio" name="pcode-radio" id="pcode-radio-2" disabled>
+          <input type="radio" name="pcode-radio" id="pcode-radio-2" [disabled]="!myCheckbox.checked">
           <label for="pcode-radio-2">Decompiled p-code</label>
         </div>
       </div>
@@ -38,7 +41,7 @@
             <div class="code table-module">{{macroModule.sourceCode}}</div>
           </div>
         </div>
-        <div class="direct-child flex-child border-left hidden"></div>
+        <div class="direct-child flex-child border-left"></div>
       </div>
     </div>
 

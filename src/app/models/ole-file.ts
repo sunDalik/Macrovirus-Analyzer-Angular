@@ -1,4 +1,5 @@
 import {FileReaderService, OffsetValue} from "../services/file-reader.service";
+import {FuncType, VbaAnalysisService} from "../services/vba-analysis.service";
 
 export class MacroModule {
   name: string = "";
@@ -31,10 +32,20 @@ class DirEntry {
   }
 }
 
+export class VBAFunction {
+  dependencies: Array<number> = [];
+  body: Array<string> = [];
+
+  constructor(public id: number, public name: string, public type: FuncType) {
+  }
+}
+
 export class OleFile {
   readError = false;
   isMalicious = false;
   macroModules: Array<MacroModule> = [];
+  analysisResult = "";
+  VBAFunctions: Array<VBAFunction> = []
 
   private sectorSize = 512;
   private miniSectorSize = 64;
@@ -45,13 +56,14 @@ export class OleFile {
   private miniStream = new Uint8Array(0);
   private fileTree: DirEntry | undefined;
 
-  constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService) {
+  constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService, public analysisService: VbaAnalysisService) {
     try {
       this.processFile();
     } catch (e) {
       console.log("ERROR READING OLEFILE " + this.file.name);
       this.readError = true;
     }
+    this.analysisResult = this.analysisService.analyzeFile(this);
   }
 
   processFile() {

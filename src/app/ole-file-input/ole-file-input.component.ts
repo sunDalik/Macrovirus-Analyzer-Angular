@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@a
 import {OleFile} from "../models/ole-file";
 import * as JSZip from "jszip";
 import {FileReaderService} from "../services/file-reader.service";
+import {VbaAnalysisService} from "../services/vba-analysis.service";
 
 @Component({
   selector: 'app-ole-file-input',
@@ -13,7 +14,7 @@ export class OleFileInputComponent implements OnInit {
   // @ts-ignore
   @ViewChild('input') input: ElementRef;
 
-  constructor(private oleFileReaderService: FileReaderService) {
+  constructor(private oleFileReaderService: FileReaderService,private analysisService: VbaAnalysisService,) {
   }
 
   ngOnInit(): void {
@@ -64,7 +65,7 @@ export class OleFileInputComponent implements OnInit {
         }
         const contents = new Uint8Array(<ArrayBuffer>result);
         if (this.oleFileReaderService.isOleFile(contents)) {
-          tryFinish(new OleFile(file, contents, this.oleFileReaderService));
+          tryFinish(new OleFile(file, contents, this.oleFileReaderService, this.analysisService));
         } else if (this.oleFileReaderService.isZipFile(contents)) {
           const jsZip = new JSZip();
           jsZip.loadAsync(file)
@@ -83,7 +84,7 @@ export class OleFileInputComponent implements OnInit {
               tryFinish(null);
             })
             .then(content => {
-              tryFinish(new OleFile(file, new Uint8Array(<number[]>content), this.oleFileReaderService));
+              tryFinish(new OleFile(file, new Uint8Array(<number[]>content), this.oleFileReaderService, this.analysisService));
             });
         } else {
           tryFinish(null);

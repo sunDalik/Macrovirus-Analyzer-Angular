@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {OleFile} from "../models/ole-file";
+import {GlobalDataService} from "../services/global-data.service";
 
 @Component({
   selector: 'app-file-upload',
@@ -9,13 +10,14 @@ import {OleFile} from "../models/ole-file";
 })
 export class FileUploadComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private globalData: GlobalDataService) {
   }
 
   ngOnInit(): void {
   }
 
   onFilesUpload(files: Array<OleFile>) {
-    this.router.navigate(['result'], {state: {files: files}});
+    this.router.navigate(['result']);
+    this.globalData.files = files;
   }
 }
