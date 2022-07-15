@@ -44,8 +44,12 @@ export class OleFile {
   readError = false;
   isMalicious = false;
   macroModules: Array<MacroModule> = [];
-  analysisResult = "";
   VBAFunctions: Array<VBAFunction> = []
+
+  //Analysis result
+
+  suspiciousKeywords: Array<any> = [];
+  stompedKeywords: Array<any> = [];
 
   private sectorSize = 512;
   private miniSectorSize = 64;
@@ -63,7 +67,7 @@ export class OleFile {
       console.log("ERROR READING OLEFILE " + this.file.name);
       this.readError = true;
     }
-    this.analysisResult = this.analysisService.analyzeFile(this);
+    this.analysisService.analyzeFile(this);
   }
 
   processFile() {

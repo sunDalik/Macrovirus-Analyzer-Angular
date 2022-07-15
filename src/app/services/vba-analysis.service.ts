@@ -99,29 +99,24 @@ export class VbaAnalysisService {
     {regex: /Options\..+[ \t]*=/, word: "Options", description: "Modifies word settings"}
   ];
 
-  analyzeFile(oleFile: OleFile): string {
-    if (oleFile.readError) {
-      return "Error reading file";
-    }
+  analyzeFile(oleFile: OleFile): void {
+    oleFile.suspiciousKeywords = [];
+    oleFile.stompedKeywords = [];
 
-    if (oleFile.macroModules.length === 0) {
-      return "Module is safe!\n(No macro scripts detected)";
-    }
+    if (oleFile.readError) return;
+
+    if (oleFile.macroModules.length === 0) return;
 
     oleFile.VBAFunctions = this.parseVBAFunctions(oleFile);
 
     let safe = true;
-    let output = "";
 
     const stompingDetectionResult = this.detectVBAStomping(oleFile);
-    if (stompingDetectionResult.length > 0) {
+    for (const res of stompingDetectionResult) {
       safe = false;
-      output += "<div class='mb-s'>Detected <b>VBA stomping</b>!\nKeywords missing from source code:</div>";
-      for (const res of stompingDetectionResult) {
-        output += `<li><span class="list-flex-sb"><span>${res.keyword}</span><span class="sneaky">(${res.module.name})</span></span></li>`;
-      }
-      output += "\n";
+      oleFile.stompedKeywords.push(res);
     }
+
 
     for (const func of oleFile.VBAFunctions) {
       if (!this.isAutoExec(func.name)) continue;
@@ -159,22 +154,12 @@ export class VbaAnalysisService {
         }
       }
 
-      if (foundWords.length !== 0) {
-        output += `<div class='mb-s'>Autoexec function <b>${func.name}</b> contains suspicious keywords:</div>`;
-        for (const word of foundWords) {
-          output += `<li><span>${word.word}</span><span class="keyword-description">(${word.description})</span></li>`;
-        }
-        output += "\n";
+      for (const word of foundWords) {
+        oleFile.suspiciousKeywords.push({func: func, word: word.word, description: word.description})
       }
     }
 
-    if (safe) {
-      oleFile.isMalicious = false;
-      return "File is safe!\n";
-    } else {
-      oleFile.isMalicious = true;
-      return output;
-    }
+    oleFile.isMalicious = !safe;
   }
 
   parseVBAFunctions(oleFile: OleFile) {
