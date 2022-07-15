@@ -1,8 +1,8 @@
 <div class="main-table">
   <div class="tab-selector-table">
-    <span class="tab-selector" (click)="activeTab=1">Analysis</span>
-    <span class="tab-selector" (click)="activeTab=2">Source Code</span>
-    <span class="tab-selector" (click)="activeTab=3">Deobfuscated code</span>
+    <span class="tab-selector" (click)="activeTab=1" [class.inactive-tab]="activeTab !== 1">Analysis</span>
+    <span class="tab-selector" (click)="activeTab=2" [class.inactive-tab]="activeTab !== 2">Source Code</span>
+    <span class="tab-selector" (click)="activeTab=3" [class.inactive-tab]="activeTab !== 3">Deobfuscated code</span>
   </div>
 
   <div class="tabs" *ngIf="activeFile !== undefined">
