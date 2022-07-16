@@ -1,10 +1,11 @@
 import {FileReaderService, OffsetValue} from "../services/file-reader.service";
 import {FuncType, VbaAnalysisService} from "../services/vba-analysis.service";
+import {PcodeDisassemblyService} from "../services/pcode-disassembly.service";
 
 export class MacroModule {
   name: string = "";
   sourceCode: string = "";
-  pcode: string = "";
+  pcode: Array<string> = [];
 }
 
 enum DirEntryType {
@@ -60,7 +61,7 @@ export class OleFile {
   private miniStream = new Uint8Array(0);
   private fileTree: DirEntry | undefined;
 
-  constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService, public analysisService: VbaAnalysisService) {
+  constructor(public file: File, public binaryContent: Uint8Array, public fileReaderService: FileReaderService, public analysisService: VbaAnalysisService, public pcodeService: PcodeDisassemblyService) {
     try {
       this.processFile();
     } catch (e) {
@@ -270,10 +271,10 @@ export class OleFile {
         macroModule.sourceCode = this.fileReaderService.byteArrayToStr(this.decompressVBASourceCode(dataArray.slice(moduleRecord.sourceOffset)));
         macroModule.sourceCode = this.removeAttributes(macroModule.sourceCode);
         try {
-          //macroModule.pcode = disassemblePCode(dataArray, vbaProjectStream, dirStream);
+          macroModule.pcode = this.pcodeService.disassemblePCode(dataArray, vbaProjectStream, dirStream);
         } catch (e) {
           console.log("PCODE DISASSEMBLING ERROR");
-          //macroModule.pcode = [];
+          macroModule.pcode = [];
         }
         this.macroModules.push(macroModule);
       }
