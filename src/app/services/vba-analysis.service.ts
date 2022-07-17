@@ -154,9 +154,7 @@ export class VbaAnalysisService {
         }
       }
 
-      for (const word of foundWords) {
-        oleFile.suspiciousKeywords.push({func: func, word: word.word, description: word.description})
-      }
+      if (foundWords.length > 0) oleFile.suspiciousKeywords.push({func: func, words: foundWords})
     }
 
     oleFile.isMalicious = !safe;

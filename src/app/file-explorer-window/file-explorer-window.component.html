@@ -10,8 +10,12 @@
       <div class="tab-text">
         <div class="table-module">
           <div *ngIf="activeFile.readError">Error reading file</div>
-          <div *ngIf="!activeFile.isMalicious">File is safe!</div>
-          <div *ngIf="activeFile.macroModules.length===0">Module is safe!\n(No macro scripts detected)</div>
+          <div *ngIf="!activeFile.isMalicious && activeFile.macroModules.length>0 && !activeFile.readError">File is
+            safe!
+          </div>
+          <div *ngIf="activeFile.macroModules.length===0 && !activeFile.readError">File is safe!<br>(No macro scripts
+            detected)
+          </div>
 
           <div class="mb-s" *ngIf="activeFile.stompedKeywords.length > 0">Detected <b>VBA stomping</b>! Keywords missing
             from source code:
@@ -22,10 +26,11 @@
             </span>
           </li>
 
-          <div *ngFor="let kw of activeFile.suspiciousKeywords">
-            <div class="mb-s">Autoexec function <b>{{kw.func.name}}</b> contains suspicious keywords:</div>
-            <li>
+          <div *ngFor="let f of activeFile.suspiciousKeywords; let i = index">
+            <div class="mb-s">Autoexec function <b>{{f.func.name}}</b> contains suspicious keywords:</div>
+            <li *ngFor="let kw of activeFile.suspiciousKeywords[i].words; let last = last;">
               <span>{{kw.word}}</span><span class="keyword-description">({{kw.description}})</span>
+              <br *ngIf="last">
             </li>
           </div>
         </div>
